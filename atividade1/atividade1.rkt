@@ -43,8 +43,9 @@
 
 ;; 8
 (define (potencia base expoente)
-  (if (= expoente 0)
-      1
-      (* base (potencia base (- expoente 1)))
-      )
-  )
+  (if (= expoente 0) 1 (* base (potencia base (- expoente 1)))))
+
+;; 8 testes
+(if (= (potencia 2 2) 4) "Test: 2^2 = 4 OK" "2^2 != 4 ERROR")
+(if (= (potencia 2 3) 8) "Test: 2^3 = 8 OK" "2^3 != 8 ERROR")
+(if (= (potencia 5 5) 3125) "Test: 5^5 = 3125 OK" "5^5 != 3125 ERROR")
