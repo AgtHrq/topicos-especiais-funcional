@@ -48,11 +48,13 @@
 ;; 8 - extra
 (define (potencia-extra base expoente)
   (if (= expoente 0) 1 (if (> expoente 0) (* base (potencia-extra base (- expoente 1))) (* (/ 1 base) (potencia-extra base (+ expoente 1))))))
-  
+
 ;; 8 testes
+(if (= (potencia 2 0) 1) "teste pontencia: 2^0 = 1 OK" "2^0 != 1 ERROR")
 (if (= (potencia 2 2) 4) "teste pontencia: 2^2 = 4 OK" "2^2 != 4 ERROR")
 (if (= (potencia 2 3) 8) "teste pontencia: 2^3 = 8 OK" "2^3 != 8 ERROR")
 (if (= (potencia 5 5) 3125) "teste pontencia: 5^5 = 3125 OK" "5^5 != 3125 ERROR")
+(if (= (potencia-extra 3 0) 1) "teste potencia-extra: 3^0 = 1 OK" "3^0 != 1 ERROR")
 (if (= (potencia-extra 2 2) 4) "teste potencia-extra: 2^2 = 4 OK" "2^2 != 4 ERROR")
 (if (= (potencia-extra 2 -1) 1/2) "teste potencia-extra: 2^-1 = 1/2 OK" "2^-1 != 1/2 ERROR")
 (if (= (potencia-extra 2 -2) 1/4) "teste potencia-extra: 2^-2 = 1/4 OK" "2^-2 != 1/4 ERROR")
