@@ -31,7 +31,7 @@
 ;; quando m < n.
 
 (define (sub m n)
-  (if (= n 0) m (sub (sub1 m ) (sub1 n )))
+  (if (= n 0) m (sub (sub1 m) (sub1 n)))
 )
 
 (define-test-suite testes-sub
@@ -93,7 +93,7 @@
 
 ;; Altere a definição da variável elem3-lista6, abaixo, para que ele tenha
 ;; o valor do terceiro elemento de lista6, usando apenas as funções first e rest
-(define elem3-lista6 #f)
+(define elem3-lista6 (first (rest (rest lista6))))
 
 (define-test-suite teste-ex6
   (test-equal? "elem3-lista6 deve ser 33" elem3-lista6 33))
@@ -103,7 +103,8 @@
 ;; Escreva a função terceiro-elemento, abaixo, que retorna sempre o terceiro
 ;; elemento da lista l. Suponha que l sempre tenha 3 elementos ou mais.
 (define (terceiro-elemento l)
-  #f)
+  (first (rest (rest l)))
+)
 
 (define-test-suite testes-terceiro-elemento
   (test-equal? "3o de '(1 2 3)" (terceiro-elemento (list 1 2 3))   3)
@@ -117,7 +118,8 @@
 ;; Crie uma função recursiva soma-lista (abaixo) que, dada uma lista de números,
 ;; calcula a soma dos números contidos
 (define (soma-lista l)
-  #f)
+    (if (empty? l) 0 (+ (first l) (soma-lista (rest l))))
+)
 
 (define-test-suite testes-soma-lista
   (test-equal? "soma da lista vazia"                (soma-lista '())                  0)
@@ -131,7 +133,8 @@
 ;; Crie uma função recursiva mult-lista (abaixo) que, dada uma lista de números,
 ;; calcula o produto dos números contidos (a lista vazia deve ter produto igual a 1)
 (define (mult-lista l)
-  #f)
+  (if (empty? l) 1 (* (first l) (mult-lista (rest l))))
+)
 
 (define-test-suite testes-mult-lista
   (test-equal? "produto da lista vazia"            (mult-lista '())                  1)
@@ -209,11 +212,11 @@
              testes-sub
              testes-par-impar
              teste-ex4
-             ;;teste-ex5
-             ;teste-ex6
-             ;testes-terceiro-elemento
-             ;testes-soma-lista
-             ;testes-mult-lista
+             teste-ex5
+             teste-ex6
+             testes-terceiro-elemento
+             testes-soma-lista
+             testes-mult-lista
              ;testes-max-lista
              ;testes-elemento-n
              ;testes-quadrado-lista
