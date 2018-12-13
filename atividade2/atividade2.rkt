@@ -42,9 +42,37 @@
   (test-equal? "11 - 10" (sub 10 15)  (- 5))
   (test-equal? "10 - 11" (sub 10 11)  (- 1)))
 
+;; --- Exercício 3 ---------------------
+
+;; Crie uma função (par n) que retorna #t se n é par e #f se n é ímpar. Em seguida,
+;; crie uma função (impar n) que retorna #t se n é ímpar e #f se n é par. Pense em
+;; como definir uma usando a outra (ver observações nas notas de aula).
+
+(define (par n)
+  (if (negative? n) #f (if (= n 0) #t (par (- n 2))))
+)
+
+(define (impar n)
+  (if (par n) #f #t)
+)
+
+(define-test-suite testes-par-impar
+  (test-true "2 é par"         (par 2))
+  (test-true "0 é par"         (par 0))
+  (test-true "42 é par"        (par 42))
+  (test-false "3 não é par"    (par 3))
+  (test-false "111 não é par"  (par 111))
+  (test-false "12 não é ímpar" (impar 12))
+  (test-false "0 não é ímpar"  (impar 0))
+  (test-true "7 é ímpar"       (impar 7))
+  (test-true "353 é ímpar"     (impar 353)))
+
+
+
 ;; --- Executa todos os testes ---------
 (run-tests
   (test-suite "todos os testes"
               testes-mult
               testes-sub
+              testes-par-impar
               ))
