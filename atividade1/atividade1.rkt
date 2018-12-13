@@ -58,3 +58,5 @@
 (if (= (potencia-extra 2 2) 4) "teste potencia-extra: 2^2 = 4 OK" "2^2 != 4 ERROR")
 (if (= (potencia-extra 2 -1) 1/2) "teste potencia-extra: 2^-1 = 1/2 OK" "2^-1 != 1/2 ERROR")
 (if (= (potencia-extra 2 -2) 1/4) "teste potencia-extra: 2^-2 = 1/4 OK" "2^-2 != 1/4 ERROR")
+
+(potencia-extra 2 -10)
