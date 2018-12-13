@@ -23,9 +23,28 @@
   (test-equal? "13 * 1" (mult 13 1)   13)
   (test-equal? "1 * 13" (mult 1 13)   13))
 
+;; --- Exercício 2 ---------------------
 
-  ;; --- Executa todos os testes ---------
+;; Crie uma função (sub m n) que calcula a subtração de m por n,
+;; usando apenas as funções add1 e sub1. Pode ser assumido que
+;; m >= n, mas não é difícil escrever uma função que funcione mesmo
+;; quando m < n.
+
+(define (sub m n)
+  (if (= n 0) m (sub (- m 1) (- n 1)))
+)
+
+(define-test-suite testes-sub
+  (test-equal? "42 - 0"  (sub 42 0)   42)
+  (test-equal? "32 - 16" (sub 32 16)  16)
+  (test-equal? "42 - 42" (sub 42 42)  0)
+  (test-equal? "11 - 10" (sub 11 10)  1)
+  (test-equal? "11 - 10" (sub 10 15)  (- 5))
+  (test-equal? "10 - 11" (sub 10 11)  (- 1)))
+
+;; --- Executa todos os testes ---------
 (run-tests
   (test-suite "todos os testes"
               testes-mult
+              testes-sub
               ))
