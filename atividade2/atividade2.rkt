@@ -147,8 +147,12 @@
 
 ;; Crie uma função recursiva max-lista (abaixo) que, dada uma lista de números naturais,
 ;; calcula o maior número entre os presentes na lista. Use (max-lista '()) = 0.
+;(define (max-lista l)
+;  (if (empty? l) 0 (if (> (first l (max-lista (rest l))))  (first l) (max-lista (rest l)) ))
+;)
+
 (define (max-lista l)
-  #f)
+  (if(empty? l) 0 (if(> (first l) (max-lista (rest l))) (first l) (max-lista (rest l)))))
 
 (define-test-suite testes-max-lista
   (test-equal? "maximo da lista vazia"       (max-lista '())                     0)
@@ -164,7 +168,14 @@
 ;; elemento da lista, contando a partir de zero. Se n é maior ou igual ao
 ;; tamanho da lista, a função deve retornar #f (veja os testes para exemplos
 (define (elemento-n lista n)
-  '())  ;; usando '() ao inves de #f pois #f é um valor de retorno válido
+  (if (>= n (length lista)) #f (
+    (if (empty? lista) #f  (
+      (if (= n 0) 
+        (first (rest lista)) 
+        (elemento-n (rest lista) (- n 1))
+      )
+  )))
+))  ;; usando '() ao inves de #f pois #f é um valor de retorno válido
 
 (define-test-suite testes-elemento-n
   (test-equal? "elemento de lista vazia" (elemento-n '() 0)                #f)
@@ -180,7 +191,8 @@
 ;; números, obtém uma lista contendo o quadrado de cada número da lista
 ;; original (nas mesmas posições)
 (define (quadrado-lista l)
-  #f)
+  (map (lambda (num) (* num num) ) l)
+)
 
 (define-test-suite testes-quadrado-lista
   (test-equal? "quadrado da lista vazia"  (quadrado-lista '())        '())
@@ -195,7 +207,8 @@
 ;; que, dado uma lista de números naturais, retorna uma outra lista contendo apenas
 ;; os números pares da lista original. Use a função par definida no exercício 3
 (define (filtra-par l)
-  #f)
+  (map (lambda (num) (if (par num) num (cons '())) )l)
+)
 
 (define-test-suite testes-filtra-par
   (test-equal? "filtragem da lista vazia"     (filtra-par '())                  '())
@@ -219,6 +232,6 @@
              testes-mult-lista
              ;testes-max-lista
              ;testes-elemento-n
-             ;testes-quadrado-lista
-             ;testes-filtra-par
+             testes-quadrado-lista
+             testes-filtra-par
              ))
