@@ -67,12 +67,21 @@
   (test-true "7 é ímpar"       (impar 7))
   (test-true "353 é ímpar"     (impar 353)))
 
+;; --- Exercício 4 ---------------------
 
+;; Altere a definição de lista-ex4, abaixo, para que ela contenha os números
+;; de 1 a 5, em ordem crescente, usando apenas cons e a lista vazia
+(define lista-ex4 (cons 1 (cons 2 (cons 3 (cons 4 (cons 5 '()))))))
 
+;; para não entregar a resposta no teste, vamos construir a resposta de outra forma...
+(define-test-suite teste-ex4
+  (test-equal? "numeros de 1 a 5" lista-ex4 (range 1 6)))
+  
 ;; --- Executa todos os testes ---------
 (run-tests
   (test-suite "todos os testes"
               testes-mult
               testes-sub
               testes-par-impar
+              teste-ex4
               ))
