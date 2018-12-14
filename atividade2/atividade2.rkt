@@ -186,7 +186,8 @@
 ;; números, obtém uma lista contendo o quadrado de cada número da lista
 ;; original (nas mesmas posições)
 (define (quadrado-lista l)
-  (map (lambda (num) (* num num) ) l)
+  (if (empty? l) '()
+  (cons (*(first l)(first l)) (quadrado-lista (rest l))))
 )
 
 (define-test-suite testes-quadrado-lista
@@ -202,8 +203,9 @@
 ;; que, dado uma lista de números naturais, retorna uma outra lista contendo apenas
 ;; os números pares da lista original. Use a função par definida no exercício 3
 (define (filtra-par l)
-  (map (lambda (num) (if (par num) num (cons '())) )l)
-)
+  (if (empty? l) '()
+  (if (par (first l)) (cons (first l) (filtra-par (rest l))) (filtra-par (rest l)))
+))
 
 (define-test-suite testes-filtra-par
   (test-equal? "filtragem da lista vazia"     (filtra-par '())                  '())
@@ -227,6 +229,6 @@
              testes-mult-lista
              testes-max-lista
              testes-elemento-n
-             ;testes-quadrado-lista
-             ;testes-filtra-par
+             testes-quadrado-lista
+             testes-filtra-par
              ))
