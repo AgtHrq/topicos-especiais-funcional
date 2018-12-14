@@ -168,14 +168,9 @@
 ;; elemento da lista, contando a partir de zero. Se n é maior ou igual ao
 ;; tamanho da lista, a função deve retornar #f (veja os testes para exemplos
 (define (elemento-n lista n)
-  (if (>= n (length lista)) #f (
-    (if (empty? lista) #f  (
-      (if (= n 0) 
-        (first (rest lista)) 
-        (elemento-n (rest lista) (- n 1))
-      )
-  )))
-))  ;; usando '() ao inves de #f pois #f é um valor de retorno válido
+  (if(>= n (length lista)) #f
+    (if (= n 0) (first lista) (elemento-n (rest lista)(- n 1))))
+)  ;; usando '() ao inves de #f pois #f é um valor de retorno válido
 
 (define-test-suite testes-elemento-n
   (test-equal? "elemento de lista vazia" (elemento-n '() 0)                #f)
@@ -230,8 +225,8 @@
              testes-terceiro-elemento
              testes-soma-lista
              testes-mult-lista
-             ;testes-max-lista
-             ;testes-elemento-n
-             testes-quadrado-lista
-             testes-filtra-par
+             testes-max-lista
+             testes-elemento-n
+             ;testes-quadrado-lista
+             ;testes-filtra-par
              ))
