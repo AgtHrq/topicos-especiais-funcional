@@ -28,7 +28,7 @@
 (define (remove-primeiro x lst)
   (if (empty? lst) 
     '()
-    (if (= (first lst) x) 
+    (if (equal? (first lst) x) 
     (rest lst)
     (cons (first lst) (remove-primeiro x (rest lst)))
     )
@@ -57,7 +57,7 @@
 (define (remove-todos x lst)
   (if (empty? lst) 
     '()
-    (if (= (first lst) x) 
+    (if (equal? (first lst) x) 
      (remove-todos x (rest lst))
      (cons (first lst) (remove-todos x (rest lst)))
     )
@@ -77,7 +77,11 @@
 ;; listas de números, ou também funcionam para listas de outros tipos de
 ;; elementos, como strings? Funciona com listas heterogêneas (com elementos
 ;; de tipos diferentes na mesma lista)? Faça alguns testes que demonstram se
-;; funcionam ou não. 
+;; funcionam ou não.
+(test-equal? "remover primeiro lista com strings" (remove-primeiro "a" '("b" "a" "c" "a")) '("b" "c" "a"))
+(test-equal? "remover todos lista com strings" (remove-todos "a" '("a" "b" "c" "a" "d" "e")) '("b" "c" "d" "e"))
+(test-equal? "remover primeiro lista heterogênia" (remove-primeiro "a" '("a" 1 "a" 4 5)) '( 1 "a" 4 5))
+(test-equal? "remover todos lista heterogênia" (remove-todos "a" '("a" 1 "a" 4 5 "a" 9 "e")) '( 1  4 5  9 "e"))
 
 
 ;; --- Questão 4 ----------------------------
