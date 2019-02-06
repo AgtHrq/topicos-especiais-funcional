@@ -129,7 +129,14 @@
 ;; elemento de cada par vem de l1 e o segundo de l2. O número de pares deve ser igual ao
 ;; tamanho da menor lista. Veja os testes para exemplos.
 (define (combine l1 l2)
-  '())
+  (if (empty? l1)
+    '()
+    (if (empty? l2)
+      '()
+      (cons (cons (first l1) (cons (first l2) '())) (combine (rest l1) (rest l2)))
+    )
+  )
+)
 
 (define-test-suite test-combine
   (test-equal? "listas de mesmo tamanho"
@@ -294,7 +301,7 @@
              test-remove-primeiro
              test-remove-todos
              test-pertence?
-             ;;test-combine
+             test-combine
              ;;test-conjunto=?
              ;;test-remove-duplicatas
              ;;test-uniao
