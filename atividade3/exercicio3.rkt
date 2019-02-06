@@ -102,7 +102,14 @@
 ;; Escreva uma função pertence? tal que
 ;; (pertence? x lst) retorna #t se o elemento x aparece na lista (conjunto) lst
 (define (pertence? x lst)
-  #f)
+  (if (empty? lst)
+    #f
+    (if (equal? x (first lst)) 
+      #t
+      (pertence? x (rest lst))  
+    )
+  )
+)
 
 (define-test-suite test-pertence?
   (test-false "lista vazia"    (pertence? 5 '()))
@@ -286,7 +293,7 @@
  (test-suite "todos os testes"
              test-remove-primeiro
              test-remove-todos
-             ;;test-pertence?
+             test-pertence?
              ;;test-combine
              ;;test-conjunto=?
              ;;test-remove-duplicatas
