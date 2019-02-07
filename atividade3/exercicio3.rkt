@@ -178,7 +178,6 @@
     [(and (empty? c1) (empty? c2)) #t]
     [(and (empty? c1) (not (empty? c2))) #f]
     [(pertence? (first c1) c2) (conjunto=? (rest c1) (remove-primeiro (first c1) c2))]
-    [(pertence? (first c1) c2) (conjunto=? (rest c1) (remove-primeiro (first c1) c2))]
     [else #f]
   )
 )
