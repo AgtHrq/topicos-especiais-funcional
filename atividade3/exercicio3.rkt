@@ -174,7 +174,23 @@
 ;; necessariamente na mesma ordem, e #f caso exista algum elemento que pertence
 ;; a um mas não a outro.
 (define (conjunto=? c1 c2)
-  0)
+  (if (equal? (length c1) (length c2))
+  (if (empty? c1)
+      (if (empty? c2)
+        #t
+        #f
+      )
+      (if (empty? c2)
+      #f
+      ;; outra coisa aqui
+      (if (equal? (first c1) (first c2))
+        (conjunto=? (rest c1) (rest c2))
+        (conjunto=? (rest c1) (append (rest c2) (cons (first c2) '())))
+      ))
+    )
+  #f
+  )
+)
 
 (define-test-suite test-conjunto=?
   (test-true  "conjuntos vazios"        (conjunto=? '() '()))
@@ -302,7 +318,7 @@
              test-remove-todos
              test-pertence?
              test-combine
-             ;;test-conjunto=?
+             test-conjunto=?
              ;;test-remove-duplicatas
              ;;test-uniao
              ;;test-interseccao
