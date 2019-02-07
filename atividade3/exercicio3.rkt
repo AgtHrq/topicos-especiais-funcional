@@ -174,23 +174,15 @@
 ;; necessariamente na mesma ordem, e #f caso exista algum elemento que pertence
 ;; a um mas não a outro.
 (define (conjunto=? c1 c2)
-  (if (equal? (length c1) (length c2))
-  (if (empty? c1)
-      (if (empty? c2)
-        #t
-        #f
-      )
-      (if (empty? c2)
-      #f
-      ;; outra coisa aqui
-      (if (equal? (first c1) (first c2))
-        (conjunto=? (rest c1) (rest c2))
-        (conjunto=? (rest c1) (append (rest c2) (cons (first c2) '())))
-      ))
-    )
-  #f
+  (cond
+    [(and (empty? c1) (empty? c2)) #t]
+    [(and (empty? c1) (not (empty? c2))) #f]
+    [(pertence? (first c1) c2) (conjunto=? (rest c1) (remove-primeiro (first c1) c2))]
+    [(pertence? (first c1) c2) (conjunto=? (rest c1) (remove-primeiro (first c1) c2))]
+    [else #f]
   )
 )
+
 
 (define-test-suite test-conjunto=?
   (test-true  "conjuntos vazios"        (conjunto=? '() '()))
@@ -304,7 +296,8 @@
 ;; não pertencem a c2. Por exemplo, (diferenca '(1 3 5 7) '(3 7)) deve retornar
 ;; '(1 5) (não necessariamente nesta ordem).
 (define (diferenca c1 c2)
-  '())
+'()
+)
 
 ;; Para esta função, escreva também um conjunto de testes, e adicione a suite de 
 ;; testes criados à execução de todos os testes, abaixo. Você pode escrever os
