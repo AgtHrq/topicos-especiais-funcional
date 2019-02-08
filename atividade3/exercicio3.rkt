@@ -241,8 +241,24 @@
 
 ;; Escreva a função uniao tal que
 ;; (uniao c1 c2) retorna um conjunto contendo os elementos de c1 e c2, sem duplicações.
+
 (define (uniao c1 c2)
-  '())
+  (cond
+    [(and (empty? c1) (empty? c2)) '()]
+    [(and (empty? c1) (not(empty? c2))) c2]
+    [(and (empty? c2) (not(empty? c1))) c1]
+    [else 
+      (remove-duplicatas (
+        cons (first c1) (uniao (remove-primeiro (first c1) c1) c2)
+      ))
+    ]
+  )
+)
+
+;; Segunda forma de fazer a questão
+;;(define (uniao c1 c2)
+;;  (remove-duplicatas (append c1 c2))
+;;)
 
 ;; Dica: com o que vimos até agora tem pelo menos duas maneiras de escrever essa função.
 ;; Uma forma é uma função recursiva que tem que eliminar itens duplicados a cada passo.
@@ -317,6 +333,6 @@
              test-combine
              test-conjunto=?
              test-remove-duplicatas
-             ;;test-uniao
+             test-uniao
              ;;test-interseccao
              ))
