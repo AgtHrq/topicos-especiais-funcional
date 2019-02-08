@@ -288,7 +288,16 @@
 ;; (interseccao c1 c2) retorna um conjunto contendo os elementos que ocorrem
 ;; em ambos c1 e c2
 (define (interseccao c1 c2)
-  '())
+  (cond
+    [(or (empty? c1) (empty? c2)) '()]  
+    [else 
+      (if (pertence? (first c1) c2)
+        (cons (first c1) (interseccao (rest c1) c2))
+        (interseccao (rest c1) c2)
+      )
+    ]
+  )
+)
 
 (define-test-suite test-interseccao
   (test-equal? "Conjuntos vazios"        (interseccao '()      '())      '())
@@ -334,5 +343,5 @@
              test-conjunto=?
              test-remove-duplicatas
              test-uniao
-             ;;test-interseccao
+             test-interseccao
              ))
