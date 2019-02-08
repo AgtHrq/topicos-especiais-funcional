@@ -204,7 +204,12 @@
 ;; (remove-duplicatas lst) retorna uma lista com os mesmos elementos de lst mas
 ;; sem que nenhum item ocorra mais de uma vez.
 (define (remove-duplicatas lst)
-  '())
+  (cond
+    [(empty? lst) '()]
+    [else (cons (first lst) (remove-todos (first lst) (remove-duplicatas (rest lst))))]
+  )
+
+)
 
 ;; Um outro nome para a mesma função poderia ser lista->conjunto, enfatizando a
 ;; sua aplicação na criação de conjuntos a partir de listas. Nesse caso podemos
@@ -311,7 +316,7 @@
              test-pertence?
              test-combine
              test-conjunto=?
-             ;;test-remove-duplicatas
+             test-remove-duplicatas
              ;;test-uniao
              ;;test-interseccao
              ))
