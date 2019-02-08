@@ -324,14 +324,42 @@
 ;; (diferenca c1 c2) retorna um conjunto que tem todos os elementos de c1 que
 ;; não pertencem a c2. Por exemplo, (diferenca '(1 3 5 7) '(3 7)) deve retornar
 ;; '(1 5) (não necessariamente nesta ordem).
+
+
+;; APRESENTA UM ERRO
+
 (define (diferenca c1 c2)
-'()
+(cond
+  [(empty? c1) '()]
+  [(and (not(empty? c1)) (empty? c2)) c1]
+  [(and (not(empty? c2)) (empty? c1)) c2]
+  [else
+    (if (pertence? (first c1) c2)
+      (diferenca (rest c1) c2)
+      (cons (first c1) (diferenca (rest c1) c2))
+    )
+  ]
+  
+)
 )
 
 ;; Para esta função, escreva também um conjunto de testes, e adicione a suite de 
 ;; testes criados à execução de todos os testes, abaixo. Você pode escrever os
 ;; testes antes ou depois de implementar a função.
 
+(define-test-suite test-diferenca
+  (test-equal? "Conjuntos vazios"        (diferenca '()      '())      '())
+  (test-equal? "Diferença com vazio 2" (diferenca '(1 2 3) '())      '(1 2 3))
+  (test-equal? "Diferença com vazio 1" (diferenca '()      '(11 22)) '(11 22))
+  
+  (test-equal? "Um elemento que não é comum"
+    (diferenca '(1 2 3 4) '(1 2 3))   '(4))
+    
+    (test-equal? "Vários elementos que não são comuns" (diferenca '(1 3 5 7 9 11) '(11 3 1 13 17))
+    '(5 7 9))
+
+
+  )
 
 ;; --- Executa todos os testes ---------
 (run-tests
@@ -344,4 +372,5 @@
              test-remove-duplicatas
              test-uniao
              test-interseccao
+             test-diferenca
              ))
