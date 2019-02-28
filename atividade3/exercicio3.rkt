@@ -128,13 +128,13 @@
 ;; (combine l1 l2) retorna uma lista de pares (listas de dois elementos) onde o primeiro
 ;; elemento de cada par vem de l1 e o segundo de l2. O número de pares deve ser igual ao
 ;; tamanho da menor lista. Veja os testes para exemplos.
+
 (define (combine l1 l2)
-  (if (empty? l1)
-    '()
-    (if (empty? l2)
-      '()
+  (cond
+    [(or (empty? l1) (empty? l2)) '()]  
+    [else 
       (cons (cons (first l1) (cons (first l2) '())) (combine (rest l1) (rest l2)))
-    )
+    ]
   )
 )
 
@@ -191,7 +191,9 @@
   (test-true  "iguais, ordem diferente" (conjunto=? '(1 2 3) '(1 3 2)))
   (test-true  "ordem diferente"         (conjunto=? '(2 1 3) '(2 3 1)))
   (test-false "(1 2 3) e (1 2 5)"       (conjunto=? '(1 2 3) '(1 2 5)))
-  (test-false "(3 2 1) e (1 3 7)"       (conjunto=? '(3 2 1) '(1 3 7))))
+  (test-false "(3 2 1) e (1 3 7)"       (conjunto=? '(3 2 1) '(1 3 7)))
+  (test-false "(1 3) e (1 3 5 7)"       (conjunto=? '(1 3) '(1 3 5 7)))
+)
 
 
 ;; --- Questão 7 ----------------------------
@@ -333,7 +335,7 @@
   [(empty? c1) '()]
   [(and (not(empty? c1)) (empty? c2)) c1]
   [(and (not(empty? c2)) (empty? c1)) c2]
-  [else
+  [else 
     (if (pertence? (first c1) c2)
       (diferenca (rest c1) c2)
       (cons (first c1) (diferenca (rest c1) c2))
