@@ -80,7 +80,37 @@
   (test-equal? "quadrado de um número"    (quadrado-lista '(5) '())       '(25))
   (test-equal? "quadrado de números"
                (quadrado-lista (list 2 5 12 25) '())
-               (list 4 25 144 625)))
+							 (list 4 25 144 625)))
+							 
+
+
+;; --- Exercício 13 --------------------
+
+;; Agora vamos selecionar itens em uma lista. Crie uma função filtra-par (abaixo)
+;; que, dado uma lista de números naturais, retorna uma outra lista contendo apenas
+;; os números pares da lista original. Use a função par definida no exercício 3
+(define (par n)
+	(if (negative? n) #f (if (= n 0) #t (par (- n 2))))
+)
+
+(define (filtra-par l acc)
+	(if (empty? l) 
+		acc
+		(if (par (first l))
+			(filtra-par (rest l) (append acc (cons (first l) '())))
+			(filtra-par (rest l) acc)
+		)
+	)
+)
+
+(define-test-suite testes-filtra-par
+  (test-equal? "filtragem da lista vazia"     (filtra-par '() '())                  '())
+  (test-equal? "filtragem de lista sem pares" (filtra-par (list 1 3 5 7 9) '())     '())
+  (test-equal? "filtragem de lista com pares" (filtra-par (list 1 2 3 4 5) '())     (list 2 4))
+  (test-equal? "filtragem com todos os itens pares"
+               (filtra-par (list 2 4 22 144) '())
+               (list 2 4 22 144)))
+
 
 ;; --- Executa todos os testes ---------
 (run-tests
@@ -89,5 +119,6 @@
 							testes-mult-lista
 							testes-max-lista
 							testes-quadrado-lista
+							testes-filtra-par
 							))
  
