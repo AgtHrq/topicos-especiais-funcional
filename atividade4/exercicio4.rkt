@@ -62,7 +62,25 @@
   (test-equal? "maximo não muda com ordem"   (max-lista (list 45 13 8 55 24) 0)    55)
   (test-equal? "maximo de lista com zeros"   (max-lista (list 1 0 13 0 356 0) 0)   356))
 
+;; --- Exercício 4 --------------------
 
+;; Muitas vezes precisamos transformar os elementos de uma lista da mesma
+;; maneira. Escreva a função quadrado-lista (abaixo) que, dada uma lista de
+;; números, obtém uma lista contendo o quadrado de cada número da lista
+;; original (nas mesmas posições)
+(define (quadrado-lista l acc)
+	(if (empty? l) 
+		acc
+		(quadrado-lista (rest l) (append acc (cons (* (first l) (first l)) '())))
+	)
+)
+
+(define-test-suite testes-quadrado-lista
+  (test-equal? "quadrado da lista vazia"  (quadrado-lista '() '())        '())
+  (test-equal? "quadrado de um número"    (quadrado-lista '(5) '())       '(25))
+  (test-equal? "quadrado de números"
+               (quadrado-lista (list 2 5 12 25) '())
+               (list 4 25 144 625)))
 
 ;; --- Executa todos os testes ---------
 (run-tests
@@ -70,5 +88,6 @@
 							testes-soma-lista
 							testes-mult-lista
 							testes-max-lista
+							testes-quadrado-lista
 							))
  
